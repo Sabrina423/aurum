@@ -2,14 +2,16 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background: linear-gradient(180deg, #0D0D0D, #3a2f11, #D4AF37);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: linear-gradient(-45deg, #0D0D0D, #3a2f11, #D4AF37, #0D0D0D);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     font-family: 'Arial', sans-serif;
 }
+
 
 .container-inicial {
     text-align: center;
@@ -60,3 +62,16 @@ body {
 .botoes .btn-criar:hover {
     background: rgba(212, 175, 55, 0.1);
 }
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
