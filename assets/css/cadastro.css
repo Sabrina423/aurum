@@ -1,0 +1,156 @@
+/* ======= Geral ======= */
+body {
+  font-family: 'Arial', sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ======= Container ======= */
+.container-etapa {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+/* ======= Títulos ======= */
+.container-etapa h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.2rem;
+}
+
+.container-etapa p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+/* Linha de progresso */
+.linha-progresso {
+  border: none;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, #b08a20);
+  margin-bottom: 1.5rem;
+  border-radius: 5px;
+}
+
+/* ======= Inputs ======= */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.3);
+}
+
+/* ======= Botões ======= */
+.btn-primario {
+  display: block;
+  width: 100%;
+  background: linear-gradient(90deg, #D4AF37, #b08a20);
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-primario:hover {
+  background: #b08a20;
+  color: white;
+}
+
+.btn-cancelar {
+  display: block;
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: #b08a20;
+  text-decoration: none;
+}
+
+.btn-cancelar:hover {
+  text-decoration: underline;
+}
+
+/* ======= Responsividade ======= */
+@media (max-width: 768px) {
+  .container-etapa {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .container-etapa h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .btn-primario {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-etapa {
+    padding: 1rem;
+    max-width: 95%;
+  }
+
+  .container-etapa h2 {
+    font-size: 1.4rem;
+  }
+
+  .container-etapa p {
+    font-size: 0.8rem;
+  }
+
+  .form-control {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .btn-primario {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .container-etapa h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-control {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .btn-primario {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}

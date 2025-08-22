@@ -3,32 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AURUM | Cadastro - Etapa 3</title>
+  <title>Registro de Biometria - Etapa 3</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/cadastro.css">
 </head>
+<body>
+  <main class="container-etapa">
+    <h2>Registre sua biometria</h2>
+    <p>Etapa 3 de 3</p>
+    <hr class="linha-progresso">
 
-<body class="bg-dark text-light">
-
-  <main class="container py-5">
-    <div class="text-center mb-4">
-      <h1 class="text-warning">Cadastro de Biometria</h1>
-      <p>Etapa 3 de 3 - Impressão Digital</p>
-    </div>
-
-    <form action="cadastro-finalizado.html">
-      <div class="mb-4">
-        <label class="form-label">Capture sua impressão digital</label>
-        <input class="form-control" type="file" accept="image/*" required>
+    <form action="sucesso.html" method="post" class="form-etapa">
+      <div class="biometria-area">
+        <p>Registre sua biometria aqui.</p>
+        <img src="assets/img/fingerprint.png" alt="Biometria" class="icon-bio">
       </div>
 
-      <div class="d-flex justify-content-center gap-3 mt-4">
-        <a href="cadastro-etapa2.html" class="btn btn-outline-warning">Voltar</a>
-        <button type="submit" class="btn btn-warning">Finalizar Cadastro</button>
-      </div>
+      <button type="submit" class="btn-primario">Avançar</button>
+      <a href="index.html" class="btn-cancelar">Cancelar</a>
     </form>
   </main>
-
-  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

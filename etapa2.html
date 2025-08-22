@@ -3,37 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AURUM | Cadastro - Etapa 2</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/cadastro.css">
+  <title>Verificação de Identidade - Etapa 2</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 </head>
-
-<body class="body">
-
-  <main class="container py-5">
-    <div class="text-center mb-4">
-      <h1 class="text-warning">Verificação de Identidade</h1>
-      <p>Etapa 2 de 3 - Envie seus documentos</p>
+<body>
+  <main class="container-etapa">
+    <h2>Verificação de Identidade</h2>
+    <p>Etapa 2 de 3</p>
+    <div class="progress-bar">
+      <div class="progress etapa2"></div>
     </div>
 
-    <form action="etapa3.html">
-      <div class="mb-4">
-        <label class="form-label">Upload de Documento (Frente e Verso)</label>
-        <input class="form-control" type="file" accept="image/*,application/pdf" required>
+    <form action="etapa3.html" method="post" class="form-etapa">
+      <div class="upload-area">
+        <p>Faça upload do RG ou tire uma selfie</p>
+        <input type="file" accept="image/*" id="upload" name="documento" required>
       </div>
 
-      <div class="mb-4">
-        <label class="form-label">Selfie com Documento</label>
-        <input class="form-control" type="file" accept="image/*" required>
-      </div>
-
-      <div class="d-flex justify-content-center gap-3 mt-4">
-        <a href="cadastro-etapa1.html" class="btn btn-outline-warning">Voltar</a>
-        <button type="submit" class="btn btn-warning">Próxima Etapa</button>
-      </div>
+      <button type="submit" class="btn-primario">Avançar</button>
+      <a href="index.html" class="btn-cancelar">Cancelar</a>
     </form>
   </main>
-
-  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
