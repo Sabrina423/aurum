@@ -1,156 +1,198 @@
-/* ======= Geral ======= */
-body {
-  font-family: 'Arial', sans-serif;
-  background: #fff;
+:root {
+  --cor-primaria: #D4AF37;
+  --cor-secundaria: #b08a20;
+  --cor-texto: #333;
+  --cor-texto-leve: #888;
+  --cor-borda: #e0e0e0;
+  --sombra: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+* {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
+  background: linear-gradient(-45deg, #0D0D0D, #3a2f11, #D4AF37, #0D0D0D);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
 }
 
-/* ======= Container ======= */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .container-etapa {
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--sombra);
+  padding: 40px;
+  max-width: 450px;
   width: 100%;
-  max-width: 380px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  animation: slideUp 0.5s ease-out;
 }
 
-/* ======= Títulos ======= */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .container-etapa h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #000;
-  margin-bottom: 0.2rem;
+  color: var(--cor-texto);
+  margin-bottom: 5px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
 .container-etapa p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 1rem;
+  color: var(--cor-texto-leve);
+  margin-bottom: 25px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-/* Linha de progresso */
 .linha-progresso {
   border: none;
-  height: 3px;
-  background: linear-gradient(90deg, #D4AF37, #b08a20);
-  margin-bottom: 1.5rem;
-  border-radius: 5px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cor-primaria) 33%, var(--cor-borda) 33%);
+  margin: 20px 0 30px 0;
+  padding: 0;
 }
 
-/* ======= Inputs ======= */
-.form-control {
+.form-etapa {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-etapa label {
+  color: var(--cor-texto);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.form-etapa input {
+  padding: 12px 15px;
+  border: 2px solid var(--cor-borda);
   border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 0.8rem;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  transition: border-color 0.3s ease;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
 }
 
-.form-control:focus {
-  border-color: #D4AF37;
-  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.3);
+.form-etapa input:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
 }
 
-/* ======= Botões ======= */
+.form-etapa input::placeholder {
+  color: #bbb;
+}
+
 .btn-primario {
-  display: block;
-  width: 100%;
-  background: linear-gradient(90deg, #D4AF37, #b08a20);
+  padding: 12px 20px;
+  background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
   color: white;
-  font-weight: bold;
-  padding: 0.8rem;
-  border-radius: 8px;
   border: none;
-  text-align: center;
-  text-decoration: none;
-  transition: 0.3s;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 .btn-primario:hover {
-  background: #b08a20;
-  color: white;
+  background: var(--cor-secundaria);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-primario:active {
+  transform: translateY(0);
 }
 
 .btn-cancelar {
   display: block;
   text-align: center;
-  margin-top: 0.8rem;
-  font-size: 0.9rem;
-  color: #b08a20;
+  padding: 12px 20px;
+  background: transparent;
+  color: var(--cor-primaria);
+  border: 2px solid var(--cor-primaria);
+  border-radius: 8px;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 .btn-cancelar:hover {
-  text-decoration: underline;
+  background: rgba(212, 175, 55, 0.1);
 }
 
-/* ======= Responsividade ======= */
-@media (max-width: 768px) {
+.btn-cancelar:active {
+  transform: scale(0.98);
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
   .container-etapa {
-    padding: 1.5rem;
-    max-width: 90%;
+    padding: 30px 20px;
+    max-width: 100%;
   }
 
   .container-etapa h2 {
-    font-size: 1.6rem;
+    font-size: 28px;
   }
 
-  .form-control {
-    font-size: 0.9rem;
-    padding: 0.7rem;
+  .form-etapa {
+    gap: 15px;
   }
 
-  .btn-primario {
-    padding: 0.7rem;
-    font-size: 0.9rem;
+  .btn-primario,
+  .btn-cancelar {
+    padding: 10px 15px;
+    font-size: 14px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 400px) {
   .container-etapa {
-    padding: 1rem;
-    max-width: 95%;
+    padding: 20px 15px;
   }
 
   .container-etapa h2 {
-    font-size: 1.4rem;
+    font-size: 24px;
   }
 
   .container-etapa p {
-    font-size: 0.8rem;
-  }
-
-  .form-control {
-    font-size: 0.85rem;
-    padding: 0.6rem;
-  }
-
-  .btn-primario {
-    font-size: 0.85rem;
-    padding: 0.6rem;
-  }
-}
-
-@media (max-width: 320px) {
-  .container-etapa h2 {
-    font-size: 1.2rem;
-  }
-
-  .form-control {
-    font-size: 0.8rem;
-    padding: 0.5rem;
-  }
-
-  .btn-primario {
-    font-size: 0.8rem;
-    padding: 0.5rem;
+    font-size: 12px;
   }
 }
