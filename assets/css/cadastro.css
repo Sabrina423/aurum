@@ -40,179 +40,115 @@ body {
 }
 
 .container-etapa {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 8px;
-  box-shadow: var(--sombra);
-  padding: 50px;
-  max-width: 600px;
+  background: rgba(20, 20, 20, 0.7);
+  border-radius: 10px;
+  padding: 45px 60px;
+  max-width: 550px;
   width: 100%;
-  animation: slideUp 0.5s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .container-etapa h2 {
-  color: var(--cor-primaria);
-  margin-bottom: 5px;
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  color: #D4AF37;
+  font-size: 28px;
+  margin-bottom: 3px;
+  font-weight: bold;
 }
 
 .container-etapa p {
-  color: var(--cor-texto-leve);
-  margin-bottom: 25px;
+  color: #999;
   font-size: 13px;
-  font-weight: 400;
+  margin-bottom: 20px;
 }
 
 .linha-progresso {
   border: none;
-  height: 6px;
-  background: linear-gradient(90deg, var(--cor-primaria) 33%, rgba(212, 175, 55, 0.2) 33%);
-  margin: 20px 0 35px 0;
+  height: 5px;
+  background: linear-gradient(90deg, #D4AF37 33%, #404040 33%);
+  margin-bottom: 30px;
   padding: 0;
-  border-radius: 3px;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  border-radius: 2px;
 }
 
 .form-etapa {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .form-etapa label {
-  color: var(--cor-texto);
+  color: #D4AF37;
   font-weight: 600;
-  font-size: 13px;
-  margin-bottom: 8px;
+  font-size: 12px;
+  margin-bottom: 5px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .form-etapa input {
-  padding: 14px 16px;
-  border: 2px solid var(--cor-borda);
-  border-radius: 6px;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #404040;
+  border-radius: 5px;
+  color: #fff;
   font-size: 14px;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--cor-texto);
 }
 
 .form-etapa input:focus {
   outline: none;
-  border-color: var(--cor-primaria);
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  border-color: #D4AF37;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .form-etapa input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #666;
 }
 
 .btn-primario {
-  padding: 14px 20px;
-  background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+  padding: 12px;
+  background: linear-gradient(90deg, #D4AF37, #b08a20);
   color: white;
   border: none;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-}
-
-.btn-primario:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
-}
-
-.btn-primario:active {
-  transform: translateY(-1px);
-}
-
-.btn-cancelar {
-  display: block;
-  text-align: center;
-  padding: 14px 20px;
-  background: transparent;
-  color: var(--cor-primaria);
-  border: 2px solid var(--cor-primaria);
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
   transition: all 0.3s ease;
   margin-top: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+}
+
+.btn-primario:hover {
+  background: #b08a20;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-cancelar {
+  padding: 12px;
+  background: transparent;
+  color: #D4AF37;
+  border: 1px solid #D4AF37;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .btn-cancelar:hover {
-  background: rgba(212, 175, 55, 0.15);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #D4AF37;
 }
 
-.btn-cancelar:active {
-  transform: scale(0.98);
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .container-etapa {
-    padding: 40px 30px;
-    max-width: 100%;
-  }
-
-  .container-etapa h2 {
-    font-size: 32px;
-  }
-
-  .form-etapa {
-    gap: 18px;
-  }
-}
-
-@media (max-width: 576px) {
+@media (max-width: 600px) {
   .container-etapa {
     padding: 30px 20px;
-  }
-
-  .container-etapa h2 {
-    font-size: 28px;
-  }
-
-  .container-etapa p {
-    font-size: 12px;
-  }
-
-  .btn-primario,
-  .btn-cancelar {
-    padding: 12px 15px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 400px) {
-  .container-etapa {
-    padding: 20px 15px;
+    max-width: 100%;
   }
 
   .container-etapa h2 {
@@ -220,6 +156,12 @@ body {
   }
 
   .form-etapa {
-    gap: 15px;
+    gap: 14px;
+  }
+
+  .btn-primario,
+  .btn-cancelar {
+    padding: 10px;
+    font-size: 12px;
   }
 }
