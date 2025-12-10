@@ -5,7 +5,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000; 
 
-const db = require('./config/db'); // Módulo de conexão Oracle
+const db = require('./config/db'); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,10 +18,10 @@ app.set('views', './views');
 
 
 app.get('/', (req, res) => {
-    // Renderiza a view 'index.ejs' (Se você renomeou index.html para index.ejs)
+    
     res.render('index', { 
         titulo: 'Bem-vindo ao Aurum MVC',
-        // Aqui você pode passar dados do Model
+        
     });
 });
 
@@ -37,7 +37,7 @@ async function startup() {
         });
     } catch (err) {
         console.error('ERRO FATAL NA INICIALIZAÇÃO. Verifique o .env e o db.js:', err);
-        process.exit(1); // Encerra o processo se a inicialização falhar
+        process.exit(1); 
     }
 }
 
