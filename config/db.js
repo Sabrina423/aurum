@@ -17,7 +17,6 @@ let pool;
 async function initialize() {
     try {
         console.log('Criando pool de conexões com o Oracle...');
-        // Você pode configurar o oracledb.initOracleClient() aqui se for usar o Thick Mode
         pool = await oracledb.createPool(dbConfig);
         console.log('Pool de conexões criado com sucesso!');
     } catch (err) {
