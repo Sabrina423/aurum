@@ -1,9 +1,10 @@
 const fs = require('fs').promises;
 const path = require('path');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const CACHE_FILE = path.join(__dirname, 'newsCache.json');
 const CACHE_DURATION = 45 * 60 * 1000; // 45 minutes
-const API_KEY = 'pub_23ab9c8586954238864d6545961b6fbe';
+const API_KEY = process.env.NEWS_API_KEY;
 
 async function getCryptoNews() {
     try {
