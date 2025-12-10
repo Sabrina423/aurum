@@ -36,7 +36,7 @@ function getConnection() {
 async function close() {
     console.log('Encerrando pool de conexões...');
     if (pool) {
-        await pool.close(10); // Drena o pool, com timeout de 10 segundos
+        await pool.close(10); 
         console.log('Pool de conexões encerrado.');
     }
 }
