@@ -1,11 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Investimentos - AURUM</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/investimentos.css">
 </head>
 <body>
     
+    <svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f0e68c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">AURUM</div>
+            <ul class="navbar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="investimentos.html" class="active">Investimentos</a></li>
+                <li><a href="carteira.html">Carteira</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+            </ul>
+            <div class="navbar-user">
+                <span class="user-name">João Silva</span>
+                <img src="/assets/images/avatar.png" alt="Avatar" class="avatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-principal">
+        <section class="header-section">
+            <h1>Investimentos</h1>
+            <p>Gerencie sua carteira com segurança</p>
+        </section>
+
+        <!-- GRID PRINCIPAL -->
+        <div class="grid-principal">
+            <!-- ESQUERDA: CARDS DE RISCO E RENDIMENTO -->
+            <div class="left-panel">
+                <!-- RISCO SCORE -->
+                <div class="card-risco">
+                    <div class="risco-header">
+                        <h3>Risk Score</h3>
+                        <span class="risco-label">Hoje</span>
+                    </div>
+                    <div class="risco-chart">
+                        <svg viewBox="0 0 120 120" class="circular-progress">
+                            <circle cx="60" cy="60" r="54" class="circle-bg"></circle>
+                            <circle cx="60" cy="60" r="54" class="circle-progress" style="--progress: 74;"></circle>
+                        </svg>
+                        <div class="risco-valor">741</div>
+                    </div>
+                </div>
+
+                <!-- RENDIMENTO -->
+                <div class="card-rendimento">
+                    <h3>Rendimento</h3>
+                    <p class="valor-rendimento">+R$ 2.450,80</p>
+                    <p class="percentual-rendimento">+18,5% este mês</p>
+                    <div class="mini-chart">
+                        <div class="bar" style="height: 25%;"></div>
+                        <div class="bar" style="height: 40%;"></div>
+                        <div class="bar" style="height: 35%;"></div>
+                        <div class="bar" style="height: 60%;"></div>
+                        <div class="bar" style="height: 50%;"></div>
+                        <div class="bar" style="height: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- AMEAÇAS -->
+                <div class="card-ameacas">
+                    <h3>Ameaças por Vírus</h3>
+                    <div class="ameacas-list">
+                        <div class="ameaca-item">
+                            <span class="ameaca-dot" style="background: #ff6b6b;"></span>
+                            <span class="ameaca-nome">Crítico</span>
+                            <span class="ameaca-count">3</span>
+                        </div>
+                        <div class="ameaca-item">
+                            <span class="ameaca-dot" style="background: #ffa94d;"></span>
+                            <span class="ameaca-nome">Aviso</span>
+                            <span class="ameaca-count">8</span>
+                        </div>
+                        <div class="ameaca-item">
+                            <span class="ameaca-dot" style="background: #51cf66;"></span>
+                            <span class="ameaca-nome">Seguro</span>
+                            <span class="ameaca-count">15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTRO: GRÁFICO E RESUMO -->
+            <div class="center-panel">
+                <!-- RISCO ATUAL -->
+                <div class="card-risco-atual">
+                    <div class="header-risco">
+                        <h3>Risco Atual</h3>
+                        <button class="btn-periodo">Diário ▼</button>
+                    </div>
+                    <div class="grafico-linha">
+                        <svg viewBox="0 0 500 150" preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#b8860b;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#b8860b;stop-opacity:0" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Grid -->
+                            <line x1="0" y1="30" x2="500" y2="30" class="grid-line" />
+                            <line x1="0" y1="60" x2="500" y2="60" class="grid-line" />
+                            <line x1="0" y1="90" x2="500" y2="90" class="grid-line" />
+                            <!-- Linha -->
+                            <polyline points="0,100 60,75 120,85 180,50 240,60 300,35 360,55 420,40 480,25" 
+                                      class="chart-line" />
+                            <!-- Preenchimento -->
+                            <polygon points="0,100 60,75 120,85 180,50 240,60 300,35 360,55 420,40 480,25 480,150 0,150" 
+                                     fill="url(#gradient)" />
+                            <!-- Pontos -->
+                            <circle cx="480" cy="25" r="5" class="chart-point" />
+                        </svg>
+                    </div>
+                    <div class="chart-legenda">
+                        <span>Jan</span>
+                        <span>Fev</span>
+                        <span>Mar</span>
+                        <span>Abr</span>
+                        <span>Mai</span>
+                        <span>Jun</span>
+                        <span>Jul</span>
+                        <span>Ago</span>
+                    </div>
+                </div>
+
+                <!-- RESUMO DE AMEAÇAS -->
+                <div class="card-resumo-ameacas">
+                    <h3>Resumo de Ameaças</h3>
+                    <div class="ameacas-resumo">
+                        <div class="ameaca-resumo-item">
+                            <div class="ameaca-icon critical">!</div>
+                            <div class="ameaca-info">
+                                <p class="ameaca-titulo">Crítico</p>
+                                <p class="ameaca-desc">3 ameaças detectadas</p>
+                            </div>
+                            <span class="ameaca-count-resumo">3</span>
+                        </div>
+                        <div class="ameaca-resumo-item">
+                            <div class="ameaca-icon warning">⚠</div>
+                            <div class="ameaca-info">
+                                <p class="ameaca-titulo">Aviso</p>
+                                <p class="ameaca-desc">8 ameaças detectadas</p>
+                            </div>
+                            <span class="ameaca-count-resumo">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIREITA: DETALHES -->
+            <div class="right-panel">
+                <!-- DETALHES DE AMEAÇAS -->
+                <div class="card-detalhes">
+                    <h3>Detalhes de Ameaças</h3>
+                    <div class="detalhes-filtro">
+                        <button class="filtro-detalhe ativo">Recente</button>
+                        <button class="filtro-detalhe">Visualizados</button>
+                        <button class="filtro-detalhe">Em Fila</button>
+                        <button class="filtro-detalhe">Por Tipo</button>
+                    </div>
+                    <div class="detalhes-lista">
+                        <div class="detalhe-item critical-bg">
+                            <div class="detalhe-icon">🔴</div>
+                            <div class="detalhe-info">
+                                <p class="detalhe-titulo">Malware Detectado</p>
+                                <p class="detalhe-desc">Sistema comprometido</p>
+                            </div>
+                            <button class="btn-detalhe">→</button>
+                        </div>
+                        <div class="detalhe-item warning-bg">
+                            <div class="detalhe-icon">🟡</div>
+                            <div class="detalhe-info">
+                                <p class="detalhe-titulo">Arquivo Suspeito</p>
+                                <p class="detalhe-desc">Monitorando...</p>
+                            </div>
+                            <button class="btn-detalhe">→</button>
+                        </div>
+                        <div class="detalhe-item success-bg">
+                            <div class="detalhe-icon">🟢</div>
+                            <div class="detalhe-info">
+                                <p class="detalhe-titulo">Sistema Seguro</p>
+                                <p class="detalhe-desc">Última verificação: agora</p>
+                            </div>
+                            <button class="btn-detalhe">→</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTÃO EXPLORAR -->
+                <a href="#" class="btn-explorar">
+                    <span>Explorar</span>
+                    <span class="icon">↗</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- TABELA DE INVESTIMENTOS -->
+        <section class="tabela-section">
+            <h2>Seus Ativos</h2>
+            <table class="investimentos-table">
+                <thead>
+                    <tr>
+                        <th>Ativo</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                        <th>Ganho/Perda</th>
+                        <th>%</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="ativo-nome">Vale S.A.</span><span class="ativo-code">VALE3</span></td>
+                        <td>150</td>
+                        <td>R$ 65,40</td>
+                        <td>R$ 9.810,00</td>
+                        <td class="ganho">+R$ 1.230</td>
+                        <td class="positivo">+12,5%</td>
+                        <td><button class="btn-acao">Vender</button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="ativo-nome">Petrobras</span><span class="ativo-code">PETR4</span></td>
+                        <td>200</td>
+                        <td>R$ 28,75</td>
+                        <td>R$ 5.750,00</td>
+                        <td class="ganho">+R$ 512,50</td>
+                        <td class="positivo">+8,9%</td>
+                        <td><button class="btn-acao">Vender</button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="ativo-nome">Bitcoin</span><span class="ativo-code">BTC</span></td>
+                        <td>0.05</td>
+                        <td>R$ 185.200</td>
+                        <td>R$ 9.260,00</td>
+                        <td class="perda">-R$ 512,30</td>
+                        <td class="negativo">-5,5%</td>
+                        <td><button class="btn-acao">Vender</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2025 AURUM | Educação Financeira. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

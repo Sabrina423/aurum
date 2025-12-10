@@ -1,0 +1,135 @@
+:root{
+  --gold: #D4AF37;
+  --gold-dark: #b08a20;
+  --panel-bg: rgba(0,0,0,0.62);
+  --panel-shadow: 0 14px 50px rgba(0,0,0,0.55);
+  --muted: #9f9f9f;
+  --input-bg: rgba(255,255,255,0.04);
+  --border-muted: rgba(255,255,255,0.03);
+}
+
+/* container curto e largo */
+.container-etapa{
+  background: var(--panel-bg);
+  color: #fff;
+  max-width: 640px;
+  width: min(86vw, 640px);
+  margin: 40px auto;
+  padding: 20px 34px;
+  border-radius: 10px;
+  box-shadow: var(--panel-shadow);
+}
+
+/* título e subtítulo */
+.container-etapa h2{
+  color: var(--gold);
+  font-size: 22px;
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+.container-etapa p{
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 14px 0;
+}
+
+/* linha de progresso: track escuro + camada dourada */
+.linha-progresso{
+  width: 100%;
+  height: 8px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.18);
+  position: relative;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.linha-progresso::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%; /* ajuste por etapa: 33/66/100 */
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(212,175,55,0.12), inset 0 -2px 6px rgba(0,0,0,0.35);
+}
+
+/* formulário */
+.form-etapa{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+/* área de biometria (centralizada) */
+.biometria-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.01);
+  border: 1px dashed var(--border-muted);
+  padding: 22px;
+  border-radius: 8px;
+  color: #dcd9cf;
+  min-height: 140px;
+}
+.biometria-area p{ margin: 0 0 12px 0; font-size: 13px; color: #d0cfc8; }
+
+/* ícone centralizado e responsivo */
+.icon-bio{
+  width: 96px;
+  height: auto;
+  opacity: 0.95;
+  display: block;
+  margin: 8px auto 0;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+}
+
+/* botões: lado a lado em desktop, empilhados em mobile */
+.form-buttons{
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+}
+.form-buttons .btn-primario,
+.form-buttons .btn-cancelar{
+  flex: 1 1 0;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* primário dourado */
+.btn-primario{
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  color: #111;
+  border: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* secundário transparente sem sublinhado */
+.btn-cancelar{
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(212,175,55,0.6);
+  text-decoration: none;
+}
+.btn-cancelar:hover,
+.btn-primario:hover{ transform: translateY(-2px); }
+
+/* remove underline (algumas UA mostram underline) */
+.btn-cancelar, .btn-cancelar:visited { text-decoration: none; }
+
+/* responsivo: empilhar botões e reduzir ícone */
+@media (max-width: 540px){
+  .form-buttons{ flex-direction: column; }
+  .icon-bio{ width: 72px; }
+}
