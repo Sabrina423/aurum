@@ -45,7 +45,7 @@
 
         <div class="form-buttons">
           <button type="submit" id="btn-next" class="btn-primario">Avançar</button>
-          <a href="index.html" class="btn-cancelar">Cancelar</a>
+          <a href="/" class="btn-cancelar">Cancelar</a>
         </div>
         <p id="error-msg" class="error-text">Senhas não conferem</p>
       </form>
@@ -130,11 +130,11 @@
       e.preventDefault();
       // Finish
       updateProgress(100);
-      window.location.href = 'dashboard.html';
+      window.location.href = '/dashboard';
     });
 
     function cancelFlow() {
-      window.location.href = 'index.html';
+      window.location.href = '/';
     }
   </script>
 </body>

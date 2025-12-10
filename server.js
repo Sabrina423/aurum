@@ -1,43 +1,38 @@
-require('dotenv').config(); 
+require('dotenv').config();
 
 const express = require('express');
 const app = express();
 
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 
-const db = require('./config/db'); 
+const db = require('./config/db');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use(express.static('public')); 
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 
-app.get('/', (req, res) => {
-    
-    res.render('index', { 
-        titulo: 'Bem-vindo ao Aurum MVC',
-        
-    });
-});
+const mainRoutes = require('./routes/mainRoutes');
+app.use('/', mainRoutes);
 
 
 async function startup() {
     try {
 
         await db.initialize();
-        
+
         app.listen(PORT, () => {
             console.log(`Servidor rodando em http://localhost:${PORT}`);
             console.log('STATUS: Conexão com Oracle OK. Aplicação pronta.');
         });
     } catch (err) {
         console.error('ERRO FATAL NA INICIALIZAÇÃO. Verifique o .env e o db.js:', err);
-        process.exit(1); 
+        process.exit(1);
     }
 }
 
@@ -45,7 +40,7 @@ async function shutdown(e) {
     let err = e;
     console.log('Recebido sinal de desligamento...');
     try {
-        
+
         await db.close();
         console.log('Desligamento limpo.');
     } catch (e) {
@@ -56,7 +51,7 @@ async function shutdown(e) {
 }
 
 process.on('SIGTERM', () => shutdown());
-process.on('SIGINT', () => shutdown()); 
+process.on('SIGINT', () => shutdown());
 process.on('uncaughtException', (err) => {
     console.error('Exceção não capturada:', err);
     shutdown(err);

@@ -79,7 +79,24 @@
             </div>
 
             <div class="news-grid" id="news-grid-container">
-                <!-- News will be populated by JS -->
+                <% if (news && news.length> 0) { %>
+                    <% news.forEach(function(item) { %>
+                        <div class="news-card" style="cursor: pointer;"
+                            onclick="window.open('<%= item.url %>', '_blank')">
+                            <h4 class="news-title">
+                                <%= item.title %>
+                            </h4>
+                            <p class="news-snippet">
+                                <%= item.body %>
+                            </p>
+                            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 10px;">Fonte: <%= item.source
+                                    %>
+                            </p>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p style="color:var(--muted)">Não foi possível carregar as notícias no momento.</p>
+                                <% } %>
             </div>
         </div>
 
@@ -108,7 +125,7 @@
                     <button class="btn-save" onclick="toggleProfileEdit(true)">Editar Informações</button>
                     <button class="btn-save"
                         style="background: transparent; border: 1px solid var(--border); color: var(--muted); margin-left: 10px;"
-                        onclick="window.location.href='index.html'">Sair da Conta</button>
+                        onclick="window.location.href='/'">Sair da Conta</button>
                 </div>
 
                 <!-- EDIT MODE -->
@@ -240,55 +257,9 @@
             toggleProfileEdit(false);
         }
 
-        // News API Logic
-        async function fetchNews() {
-            const newsContainer = document.getElementById('news-grid-container');
-            newsContainer.innerHTML = '<p style="color:var(--muted)">Carregando notícias...</p>';
-
-            try {
-                // Try Portuguese first
-                let response = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=PT');
-                let data = await response.json();
-
-                // If no news in PT (or very few), try EN
-                if (!data.Data || data.Data.length < 2) {
-                    response = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN');
-                    data = await response.json();
-                }
-
-                if (data.Data && data.Data.length > 0) {
-                    newsContainer.innerHTML = ''; // Clear loading
-                    // Take top 6 news
-                    data.Data.slice(0, 6).forEach(news => {
-                        const card = document.createElement('div');
-                        card.className = 'news-card';
-                        // Make card clickable
-                        card.style.cursor = 'pointer';
-                        card.onclick = () => window.open(news.url, '_blank');
-
-                        const title = news.title.length > 60 ? news.title.substring(0, 60) + '...' : news.title;
-                        const body = news.body.length > 100 ? news.body.substring(0, 100) + '...' : news.body;
-
-                        card.innerHTML = `
-                            <h4 class="news-title">${title}</h4>
-                            <p class="news-snippet">${body}</p>
-                            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 10px;">Fonte: ${news.source}</p>
-                        `;
-                        newsContainer.appendChild(card);
-                    });
-                } else {
-                    newsContainer.innerHTML = '<p>Não foi possível carregar as notícias no momento.</p>';
-                }
-
-            } catch (err) {
-                console.error('Erro ao carregar notícias:', err);
-                newsContainer.innerHTML = '<p>Erro ao conectar com servidor de notícias.</p>';
-            }
-        }
-
         // Init
         loadProfile();
-        fetchNews();
+        // fetchNews(); // Removed in favor of SSR
 
         // --- CHARTS & OTHER LOGIC ---
         const ctxExpenses = document.getElementById('expensesChart').getContext('2d');
