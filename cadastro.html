@@ -44,9 +44,10 @@
         </div>
 
         <div class="form-buttons">
-          <button type="submit" class="btn-primario">Avançar</button>
+          <button type="submit" id="btn-next" class="btn-primario">Avançar</button>
           <a href="index.html" class="btn-cancelar">Cancelar</a>
         </div>
+        <p id="error-msg" class="error-text">Senhas não conferem</p>
       </form>
     </div>
 
@@ -101,9 +102,20 @@
 
       const pass = document.getElementById('senha').value;
       const confirm = document.getElementById('confirmar').value;
+      const btn = document.getElementById('btn-next');
+      const err = document.getElementById('error-msg');
 
       if (pass !== confirm) {
-        alert('Senhas não conferem!');
+        // Visual Feedback
+        btn.classList.add('shake');
+        err.style.display = 'block';
+
+        // Remove after 5s
+        setTimeout(() => {
+          btn.classList.remove('shake');
+          err.style.display = 'none';
+        }, 5000);
+
         return;
       }
 
@@ -118,8 +130,7 @@
       e.preventDefault();
       // Finish
       updateProgress(100);
-      alert('Cadastro realizado com sucesso!');
-      window.location.href = 'login.html';
+      window.location.href = 'dashboard.html';
     });
 
     function cancelFlow() {
