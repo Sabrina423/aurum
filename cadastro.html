@@ -1,49 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - Etapa 1</title>
+  <title>Aurum - Cadastro</title>
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/cadastro.css">
+  <link rel="stylesheet" href="/assets/css/auth.css">
 </head>
+
 <body>
   <main class="container-etapa">
-    <h2>Cadastro</h2>
-    <p>Etapa 1 de 3</p>
-    <hr class="linha-progresso">
+    <h2 id="page-title">Cadastro</h2>
+    <p id="page-desc">Preencha seus dados</p>
+    <div class="linha-progresso" id="progress-container"></div>
 
-    <form action="etapa2.html" method="post" class="form-etapa">
-      <div class="form-group">
-        <label for="nome">Nome completo</label>
-        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
-      </div>
+    <!-- STEP 1: INFO -->
+    <div id="step-info" class="step-section active">
+      <form id="form-info" class="form-etapa">
+        <div class="form-group">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+        </div>
 
-      <div class="form-group">
-        <label for="cpf">CPF/CNPJ</label>
-        <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF ou CNPJ" required>
-      </div>
+        <div class="form-group">
+          <label for="cpf">CPF/CNPJ</label>
+          <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF ou CNPJ" required>
+        </div>
 
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
-      </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+        </div>
 
-      <div class="form-group">
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-      </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+        </div>
 
-      <div class="form-group">
-        <label for="confirmar">Confirmar senha</label>
-        <input type="password" id="confirmar" name="confirmar" placeholder="Confirme sua senha" required>
-      </div>
+        <div class="form-group">
+          <label for="confirmar">Confirmar senha</label>
+          <input type="password" id="confirmar" name="confirmar" placeholder="Confirme sua senha" required>
+        </div>
 
-      <div class="form-buttons">
-        <button type="submit" class="btn-primario">Avançar</button>
-        <a href="index.html" class="btn-cancelar">Cancelar</a>
-      </div>
-    </form>
+        <div class="form-buttons">
+          <button type="submit" class="btn-primario">Avançar</button>
+          <a href="index.html" class="btn-cancelar">Cancelar</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- STEP 2: DOCS -->
+    <div id="step-docs" class="step-section">
+      <form id="form-docs" class="form-etapa">
+        <div class="upload-area">
+          <p>Faça upload do RG ou tire uma selfie</p>
+          <div class="upload-btn-fake">Escolher arquivo</div>
+          <input type="file" accept="image/*" id="upload" name="documento" required>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="btn-primario">Finalizar Cadastro</button>
+          <button type="button" class="btn-cancelar" onclick="cancelFlow()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
   </main>
+
+  <script>
+    // State
+    const steps = ['step-info', 'step-docs'];
+    let currentStep = 0;
+
+    const titles = ["Cadastro", "Documentação"];
+    const descs = ["Preencha seus dados", "Envie seus documentos"];
+
+    // Elements
+    const titleEl = document.getElementById('page-title');
+    const descEl = document.getElementById('page-desc');
+    const progBar = document.getElementById('progress-container');
+
+    function updateUI(stepIndex) {
+      // Hide all
+      steps.forEach(id => document.getElementById(id).classList.remove('active'));
+      // Show current
+      document.getElementById(steps[stepIndex]).classList.add('active');
+
+      // Text
+      titleEl.textContent = titles[stepIndex];
+      descEl.textContent = descs[stepIndex];
+    }
+
+    function updateProgress(pct) {
+      progBar.style.setProperty('--p-width', pct + '%');
+    }
+
+    // --- STEP 1: INFO ---
+    document.getElementById('form-info').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const pass = document.getElementById('senha').value;
+      const confirm = document.getElementById('confirmar').value;
+
+      if (pass !== confirm) {
+        alert('Senhas não conferem!');
+        return;
+      }
+
+      // Move to Step 2
+      currentStep = 1;
+      updateUI(currentStep);
+      updateProgress(50);
+    });
+
+    // --- STEP 2: DOCS ---
+    document.getElementById('form-docs').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // Finish
+      updateProgress(100);
+      alert('Cadastro realizado com sucesso!');
+      window.location.href = 'login.html';
+    });
+
+    function cancelFlow() {
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
+
 </html>

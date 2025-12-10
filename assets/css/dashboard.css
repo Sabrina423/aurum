@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --background: #09090b;
+    --foreground: #fafafa;
+    --card: rgba(24, 24, 27, 0.4);
+    --border: rgba(255, 255, 255, 0.1);
+    --primary-gradient: linear-gradient(145deg, #ffffff 0%, #a1a1aa 100%);
+    --muted: #a1a1aa;
+    --green: #22c55e;
+    --red: #ef4444;
+    --radius: 0.75rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    background: linear-gradient(to right, #fff, #a1a1aa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-item {
+    cursor: pointer;
+    color: var(--muted);
+    font-weight: 500;
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: var(--foreground);
+}
+
+/* Content Area */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.big-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+}
+
+/* Charts Placeholder */
+.chart-container {
+    height: 250px;
+    position: relative;
+    /* Minimal placeholder styling if chart.js fails or loads slowly */
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+/* Profile Form */
+.profile-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--muted);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    color: var(--foreground);
+    box-sizing: border-box;
+}
+
+.btn-save {
+    background: var(--primary-gradient);
+    color: #000;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* News Ticker (Static) */
+.ticker-wrap {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
+}
+
+.ticker {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0 1rem;
+    /* Removed animation */
+}
+
+.ticker-item {
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.price-up {
+    color: var(--green);
+}
+
+.price-down {
+    color: var(--red);
+}
+
+/* Removed @keyframes ticker */
+
+/* News Feed */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.news-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    transition: transform 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.news-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.news-snippet {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+/* Shake Animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+.error-text {
+    color: #ef4444;
+    /* Red */
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: none;
+    transition: opacity 0.5s;
+}
+
+/* Ticker Glow Effects */
+@keyframes glowGreen {
+    0% {
+        color: inherit;
+        text-shadow: none;
+    }
+
+    30% {
+        color: #22c55e;
+        text-shadow: 0 0 10px #22c55e;
+        transform: scale(1.1);
+    }
+
+    100% {
+        color: inherit;
+        text-shadow: none;
+        transform: scale(1);
+    }
+}
+
+@keyframes glowRed {
+    0% {
+        color: inherit;
+        text-shadow: none;
+    }
+
+    30% {
+        color: #ef4444;
+        text-shadow: 0 0 10px #ef4444;
+        transform: scale(1.1);
+    }
+
+    100% {
+        color: inherit;
+        text-shadow: none;
+        transform: scale(1);
+    }
+}
+
+@keyframes glowWhite {
+    0% {
+        color: inherit;
+        text-shadow: none;
+    }
+
+    30% {
+        color: #ffffff;
+        text-shadow: 0 0 10px #ffffff;
+        transform: scale(1.1);
+    }
+
+    100% {
+        color: inherit;
+        text-shadow: none;
+        transform: scale(1);
+    }
+}
+
+.flash-green {
+    animation: glowGreen 1s ease;
+}
+
+.flash-red {
+    animation: glowRed 1s ease;
+}
+
+.flash-white {
+    animation: glowWhite 1s ease;
+}

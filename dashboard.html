@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurum | Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/dashboard.css">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="brand" onclick="showSection('dashboard')">AURUM</a>
+        <div class="nav-links">
+            <div class="nav-item active" id="nav-dashboard" onclick="showSection('dashboard')">Dashboard</div>
+            <div class="nav-item" id="nav-news" onclick="showSection('news')">News</div>
+            <div class="nav-item" id="nav-profile" onclick="showSection('profile')">Perfil</div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="main-content">
+
+        <!-- SECTION: DASHBOARD -->
+        <div id="section-dashboard" class="section active">
+            <div class="dashboard-grid">
+                <!-- Net Worth -->
+                <div class="card" style="grid-column: span 2;">
+                    <h3>Patrimônio Total</h3>
+                    <p class="big-number">R$ 1.245.302,00</p>
+                    <p style="color: var(--green); font-size: 0.9rem;">+ 2.4% (24h)</p>
+                </div>
+
+                <!-- Expenses -->
+                <div class="card">
+                    <h3>Gastos (Mês)</h3>
+                    <p class="big-number">R$ 4.320,00</p>
+                </div>
+
+                <!-- Spending Chart -->
+                <div class="card" style="grid-column: span 2;">
+                    <h3>Relatório de Gastos</h3>
+                    <div class="chart-container">
+                        <canvas id="expensesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Allocation Chart -->
+                <div class="card">
+                    <h3>Alocação (Investimentos)</h3>
+                    <div class="chart-container">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Variation Chart -->
+                <div class="card" style="grid-column: span 3;">
+                    <h3>Variação de Patrimônio</h3>
+                    <div class="chart-container">
+                        <canvas id="variationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: NEWS -->
+        <div id="section-news" class="section">
+            <div class="ticker-wrap">
+                <div class="ticker" id="crypto-ticker">
+                    <!-- JS will populate -->
+                    <span class="ticker-item">BTC <span class="price-up">$98,000 (+2%)</span></span>
+                    <span class="ticker-item">ETH <span class="price-down">$3,800 (-1%)</span></span>
+                    <span class="ticker-item">SOL <span class="price-up">$140 (+5%)</span></span>
+                </div>
+            </div>
+
+            <div class="news-grid" id="news-grid-container">
+                <!-- News will be populated by JS -->
+            </div>
+        </div>
+
+        <!-- SECTION: PROFILE -->
+        <div id="section-profile" class="section">
+            <div class="card profile-form">
+                <h3>Meu Perfil</h3>
+
+                <!-- VIEW MODE -->
+                <div id="profile-view">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <p id="view-name" style="font-size: 1.1rem; font-weight: 500; color: var(--foreground);">
+                            Carregando...</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <p id="view-email" style="font-size: 1.1rem; font-weight: 500; color: var(--foreground);">
+                            Carregando...</p>
+                    </div>
+                    <!-- Password placeholder -->
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <p style="font-size: 1.1rem; font-weight: 500; color: var(--foreground);">********</p>
+                    </div>
+                    <button class="btn-save" onclick="toggleProfileEdit(true)">Editar Informações</button>
+                    <button class="btn-save"
+                        style="background: transparent; border: 1px solid var(--border); color: var(--muted); margin-left: 10px;"
+                        onclick="window.location.href='index.html'">Sair da Conta</button>
+                </div>
+
+                <!-- EDIT MODE -->
+                <form id="profile-edit" style="display: none;" onsubmit="saveProfile(event)">
+                    <div class="form-group">
+                        <label>Nome Atual</label>
+                        <p id="edit-current-name" style="color: var(--muted); margin-bottom: 1rem;">-</p>
+                        <label>Novo Nome</label>
+                        <input type="text" id="edit-name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Atual</label>
+                        <p id="edit-current-email" style="color: var(--muted); margin-bottom: 1rem;">-</p>
+                        <label>Novo Email</label>
+                        <input type="email" id="edit-email" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Nova Senha</label>
+                        <input type="password" id="edit-pass" class="form-input" placeholder="Opcional">
+                    </div>
+                    <div class="form-group">
+                        <label>Repita a Senha</label>
+                        <input type="password" id="edit-pass-confirm" class="form-input" placeholder="Opcional">
+                    </div>
+
+                    <p id="pass-error" class="error-text">As senhas não coincidem</p>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="submit" id="btn-save-profile" class="btn-save">Salvar Alterações</button>
+                        <button type="button" class="btn-save"
+                            style="background: transparent; border: 1px solid var(--border); color: var(--muted);"
+                            onclick="toggleProfileEdit(false)">Cancelar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Navigation Logic
+        function showSection(id) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            // Show target
+            document.getElementById('section-' + id).classList.add('active');
+
+            // Update nav state
+            const navLink = document.getElementById('nav-' + id);
+            if (navLink) navLink.classList.add('active');
+        }
+
+        // --- PROFILE LOGIC ---
+        // Defaults
+        const defaultProfile = {
+            name: 'Humberto User',
+            email: 'abc@example.com'
+        };
+
+        function loadProfile() {
+            const stored = localStorage.getItem('aurum_profile');
+            const data = stored ? JSON.parse(stored) : defaultProfile;
+
+            // Update View
+            document.getElementById('view-name').innerText = data.name;
+            document.getElementById('view-email').innerText = data.email;
+
+            // Update Edit Previews (Current info)
+            document.getElementById('edit-current-name').innerText = data.name;
+            document.getElementById('edit-current-email').innerText = data.email;
+
+            // Pre-fill inputs with current data for convenience? Or keep empty as requested "Novo nome".
+            // User asked for "Novo nome" text input, usually implies empty or placeholder.
+            // I'll leave them empty to signify "Change to...".
+            document.getElementById('edit-name').value = data.name;
+            document.getElementById('edit-email').value = data.email;
+        }
+
+        function toggleProfileEdit(showEdit) {
+            const viewDiv = document.getElementById('profile-view');
+            const editForm = document.getElementById('profile-edit');
+
+            if (showEdit) {
+                viewDiv.style.display = 'none';
+                editForm.style.display = 'block';
+                // Reload current data just in case
+                loadProfile();
+            } else {
+                viewDiv.style.display = 'block';
+                editForm.style.display = 'none';
+            }
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+
+            const newName = document.getElementById('edit-name').value;
+            const newEmail = document.getElementById('edit-email').value;
+            const newPass = document.getElementById('edit-pass').value;
+            const confirmPass = document.getElementById('edit-pass-confirm').value;
+            const errorMsg = document.getElementById('pass-error');
+            const saveBtn = document.getElementById('btn-save-profile');
+
+            if (newPass && newPass !== confirmPass) {
+                // Shake and show error
+                saveBtn.classList.add('shake');
+                errorMsg.style.display = 'block';
+
+                setTimeout(() => {
+                    saveBtn.classList.remove('shake');
+                    errorMsg.style.display = 'none';
+                }, 5000); // 5 seconds
+
+                return;
+            }
+
+            // Save
+            const profile = {
+                name: newName || document.getElementById('view-name').innerText,
+                email: newEmail || document.getElementById('view-email').innerText
+            };
+
+            localStorage.setItem('aurum_profile', JSON.stringify(profile));
+
+            loadProfile();
+            toggleProfileEdit(false);
+        }
+
+        // News API Logic
+        async function fetchNews() {
+            const newsContainer = document.getElementById('news-grid-container');
+            newsContainer.innerHTML = '<p style="color:var(--muted)">Carregando notícias...</p>';
+
+            try {
+                // Try Portuguese first
+                let response = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=PT');
+                let data = await response.json();
+
+                // If no news in PT (or very few), try EN
+                if (!data.Data || data.Data.length < 2) {
+                    response = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN');
+                    data = await response.json();
+                }
+
+                if (data.Data && data.Data.length > 0) {
+                    newsContainer.innerHTML = ''; // Clear loading
+                    // Take top 6 news
+                    data.Data.slice(0, 6).forEach(news => {
+                        const card = document.createElement('div');
+                        card.className = 'news-card';
+                        // Make card clickable
+                        card.style.cursor = 'pointer';
+                        card.onclick = () => window.open(news.url, '_blank');
+
+                        const title = news.title.length > 60 ? news.title.substring(0, 60) + '...' : news.title;
+                        const body = news.body.length > 100 ? news.body.substring(0, 100) + '...' : news.body;
+
+                        card.innerHTML = `
+                            <h4 class="news-title">${title}</h4>
+                            <p class="news-snippet">${body}</p>
+                            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 10px;">Fonte: ${news.source}</p>
+                        `;
+                        newsContainer.appendChild(card);
+                    });
+                } else {
+                    newsContainer.innerHTML = '<p>Não foi possível carregar as notícias no momento.</p>';
+                }
+
+            } catch (err) {
+                console.error('Erro ao carregar notícias:', err);
+                newsContainer.innerHTML = '<p>Erro ao conectar com servidor de notícias.</p>';
+            }
+        }
+
+        // Init
+        loadProfile();
+        fetchNews();
+
+        // --- CHARTS & OTHER LOGIC ---
+        const ctxExpenses = document.getElementById('expensesChart').getContext('2d');
+        new Chart(ctxExpenses, {
+            type: 'bar',
+            data: {
+                labels: ['Alimentação', 'Transporte', 'Lazer', 'Assinaturas', 'Outros'],
+                datasets: [{
+                    label: 'Gastos R$',
+                    data: [1200, 400, 800, 200, 1720],
+                    backgroundColor: '#a1a1aa'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const ctxAlloc = document.getElementById('allocationChart').getContext('2d');
+        new Chart(ctxAlloc, {
+            type: 'doughnut',
+            data: {
+                labels: ['Bitcoin', 'Ethereum', 'Solana', 'USDT', 'Outros'],
+                datasets: [{
+                    data: [50, 30, 10, 5, 5],
+                    backgroundColor: ['#f59e0b', '#6366f1', '#14b8a6', '#22c55e', '#64748b'],
+                    borderWidth: 0
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const ctxVar = document.getElementById('variationChart').getContext('2d');
+        new Chart(ctxVar, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                datasets: [{
+                    label: 'Patrimônio',
+                    data: [1000000, 1050000, 1020000, 1100000, 1150000, 1245302],
+                    borderColor: '#fff', // White line
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // Ticker Logic (Mock Data) but could handle API
+        // For now, static HTML ticker is sufficient as per "mockups" request but let's make it look dynamic
+        // Ticker Logic (Start with initial data)
+        const cryptoData = [
+            { s: 'BTC', p: 98120, ch: 2.1 },
+            { s: 'ETH', p: 3850, ch: -0.5 },
+            { s: 'SOL', p: 142, ch: 5.4 },
+            { s: 'BNB', p: 610, ch: 1.2 },
+            { s: 'XRP', p: 0.65, ch: -1.0 },
+            { s: 'ADA', p: 0.55, ch: 0.8 }
+        ];
+
+        const tickerEl = document.getElementById('crypto-ticker');
+
+        // Initial Render
+        function renderTicker() {
+            tickerEl.innerHTML = '';
+            // Single loop, no duplication for scroll
+            cryptoData.forEach((c, index) => {
+                // Determine color based strictly on current Change %
+                const colorClass = c.ch > 0 ? 'price-up' : (c.ch < 0 ? 'price-down' : '');
+                const sign = c.ch > 0 ? '+' : '';
+
+                const html = `<span class="ticker-item" data-symbol="${c.s}">
+                    ${c.s} <span class="price-val ${colorClass}">$${c.p.toLocaleString()} (${sign}${c.ch.toFixed(2)}%)</span>
+                </span>`;
+                tickerEl.innerHTML += html;
+            });
+        }
+        renderTicker();
+
+        // Simulate Live Updates
+        setInterval(() => {
+            // Pick a random coin to update
+            const idx = Math.floor(Math.random() * cryptoData.length);
+            const coin = cryptoData[idx];
+
+            const oldPrice = coin.p;
+            // Fluctuate +/- 0.5%
+            const changePct = (Math.random() * 1) - 0.5;
+            const newPrice = oldPrice * (1 + (changePct / 100));
+
+            coin.p = parseFloat(newPrice.toFixed(2));
+            // Update day change slightly too
+            coin.ch += changePct;
+
+            // Determine Effect based on Price Movement (Immediate)
+            let effectClass = '';
+            if (newPrice > oldPrice) effectClass = 'flash-green';
+            else if (newPrice < oldPrice) effectClass = 'flash-red';
+            else effectClass = 'flash-white';
+
+            // Update UI
+            // Select ALL instances of this coin in the ticker (duplicates)
+            const items = document.querySelectorAll(`.ticker-item[data-symbol="${coin.s}"]`);
+            items.forEach(item => {
+                const valSpan = item.querySelector('.price-val');
+
+                // Update text
+                const sign = coin.ch > 0 ? '+' : '';
+                // Update base color based on total change
+                valSpan.className = `price-val ${coin.ch > 0 ? 'price-up' : (coin.ch < 0 ? 'price-down' : '')}`;
+                valSpan.innerText = `$${coin.p.toLocaleString()} (${sign}${coin.ch.toFixed(2)}%)`;
+
+                // Apply Flash
+                // Remove animation class to reset if already running
+                valSpan.classList.remove('flash-green', 'flash-red', 'flash-white');
+                void valSpan.offsetWidth; // trigger reflow
+                valSpan.classList.add(effectClass);
+            });
+
+        }, 2000); // Update every 2 seconds
+
+    </script>
+</body>
+
+</html>

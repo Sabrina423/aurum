@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --background: #09090b;
+    --foreground: #fafafa;
+    --card: rgba(24, 24, 27, 0.4);
+    --border: rgba(255, 255, 255, 0.1);
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --primary-gradient: linear-gradient(145deg, #ffffff 0%, #a1a1aa 100%);
+    --muted: #a1a1aa;
+    --radius: 0.75rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Glass Card Container */
+.container-etapa {
+    background: var(--card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+    padding: 40px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.container-etapa h2 {
+    color: var(--foreground);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to bottom, #ffffff 40%, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.container-etapa p {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.linha-progresso {
+    border: none;
+    height: 4px;
+    background: #27272a;
+    margin-bottom: 2rem;
+    padding: 0;
+    border-radius: 99px;
+    position: relative;
+    overflow: hidden;
+}
+
+.linha-progresso::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--p-width, 33%);
+    /* Default to 33% */
+    background-image: linear-gradient(90deg, #fff 33%, #a1a1aa 100%);
+    transition: width 0.4s ease;
+}
+
+/* Steps Control */
+.step-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.step-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-etapa {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: var(--foreground);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+}
+
+.form-group input {
+    padding: 0.75rem 1rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 0.75);
+    color: var(--foreground);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    width: 100%;
+}
+
+.form-group input::placeholder {
+    color: #52525b;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #a1a1aa;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.form-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-primario {
+    padding: 0.875rem;
+    background: var(--primary-gradient);
+    color: #18181b;
+    border: none;
+    border-radius: calc(var(--radius) * 0.75);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-primario:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.btn-cancelar {
+    padding: 0.875rem;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 0.75);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-transform: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-cancelar:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--foreground);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Upload Area (Etapa 2) */
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border);
+    border-radius: calc(var(--radius) * 0.75);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    min-height: 120px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-area:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: #a1a1aa;
+}
+
+.upload-area p {
+    margin: 0 0 1rem 0;
+    color: var(--muted);
+}
+
+.upload-area input[type="file"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-btn-fake {
+    pointer-events: none;
+    background: #27272a;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--foreground);
+}
+
+/* Biometria (Etapa 3) */
+.biometria-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: calc(var(--radius) * 0.75);
+    color: var(--foreground);
+    min-height: 140px;
+}
+
+.icon-bio {
+    width: 64px;
+    height: auto;
+    opacity: 0.8;
+    margin-top: 1rem;
+    filter: invert(1);
+    /* Invert if icons were dark, or adjust opacity */
+}
